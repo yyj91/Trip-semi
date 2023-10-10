@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+form {
+	margin : 0 50px;
+}
+
+label {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+#radioDiv {
+	padding: 15px;
+}
+button {
+	font-weight:bold;
+	border: none;
+	background-color:#f2f2f2;
+}
+button[type="submit"] {
+	 margin: 5px;
+	 width: 120px;
+	 height: 40px;
+	 background-color: #ff6a24;
+	 color: white;
+}
+
+input[type="radio"] {
+	display: none;
+}
+
+input[type="radio"]+label {
+	padding: 5px 10px;
+	margin: 0 auto;
+	font-size: 20px;
+}
+
+input[type="radio"]:checked+label {
+	background-color: #ff6a24;
+	color: #fff;
+}
+select {
+	font-size: 16px;
+	padding: 10px;
+	background-color: #f2f2f2;
+	border: none;
+	border-radius: 5px;
+	color:#ff6a24;
+	width: 200px;
+	font-weight: bold;
+	border-radius: 5px;
+}
+.container h2 {
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
+}
+option {
+	font-size: 16px;
+	font-weight: bold;
+}
+#demo {
+	z-index:1;
+}
+
+.slider-image {
+    max-width: 600px; /* 이미지의 최대 가로 너비를 600px로 설정 */
+    max-height: 400px;
+    display: block; /* 블록 요소로 표시하여 수직 가운데 정렬을 위해 필요합니다. */
+    margin: 0 auto; /* 수평 가운데 정렬을 수행합니다. */
+    border-radius: 10px;
+}
+
+.carousel-caption d-none d-md-block{
+    font-size: 16px; /* 원하는 글자 크기로 설정하세요 */
+    text-align: left; /* 텍스트를 왼쪽으로 정렬합니다. */
+    left: 0; /* 텍스트를 왼쪽에 배치합니다. */
+    right: auto;
+}
+
+
+footer {
+   width: 100%;
+   height: auto;
+   text-align:center;
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   background-color: #ff6a24;
+   color : white;
+
+}
+
+a:link {
+  color : white;
+}
+a:visited {
+  color : white;
+}
+a:hover {
+  color : #79d7a6;
+}
+a:active {
+  color : green
+}

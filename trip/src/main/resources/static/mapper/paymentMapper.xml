@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trip.web.dao.PaymentDAO">
+	
+	<select id="payment" parameterType="String" resultType="Map">
+		select fdeparture, farrival from flights where fuuid = #{string}
+	</select>
+	
+	<insert id="passengers" parameterType="java.util.List">
+		INSERT INTO passengers (sno, plastname, pfirstname, pnationality,
+		pbirth, pgender, rno)
+		VALUES
+		<foreach collection="list" item="passenger" separator=",">
+			(#{passenger.sno}, #{passenger.plastname}, #{passenger.pfirstname},
+			#{passenger.pnationality}, #{passenger.pbirth}, #{passenger.pgender},
+			(SELECT rno FROM reservations ORDER BY rno DESC LIMIT 1))
+		</foreach>
+	</insert>
+	<update id="sremainder" parameterType="paymentDTO">
+		UPDATE seats SET
+		sremainder = sremainder - #{peopleCount}
+		WHERE fuuid = #{fuuid}
+		AND sremainder >=#{peopleCount};
+	</update>
+	<insert id="totalamount" parameterType="paymentDTO">
+		INSERT INTO totalamounts
+		(tprice, tfee, pno, tfuel, ttax)
+		VALUES (#{tprice}, #{tfee}, (SELECT
+		MAX(pno) FROM passengers), #{tfuel},#{ttax});
+	</insert>
+	<select id="getPno" parameterType="paymentDTO">
+		SELECT pno
+		FROM passengers
+		ORDER BY pno DESC
+		LIMIT 1;
+	</select>
+
+	<insert id="reservations" parameterType="paymentDTO">
+		INSERT INTO
+		reservations(fuuid, muuid)
+		VALUES(#{fuuid}, #{muuid})
+	</insert>
+	
+	<select id="getruuid" parameterType="paymentDTO" resultType="Integer">
+		SELECT rno
+		FROM reservations
+		ORDER BY rno DESC
+		LIMIT 1;
+	</select>
+	
+	<insert id="reservations2" parameterType="paymentDTO">
+		INSERT INTO
+		reservations(fuuid, muuid)
+		VALUES(#{fuuid2}, #{muuid2})
+	</insert>
+
+
+</mapper>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trip.web.dao.ReservationDAO">
+
+	<select id="deplist" parameterType="Map" resultType="Map">
+		SELECT flights.*, seats.minSprice
+		FROM flights
+		INNER JOIN(
+			SELECT fuuid, MIN(sprice) as minSprice
+			FROM seats
+			WHERE fuuid IN(
+				SELECT fuuid
+				FROM flights
+				WHERE fdeparture=#{departure} AND farrival=#{arrival} AND DATE(ftod)=#{tod}
+			)
+			GROUP BY fuuid
+		) seats ON flights.fuuid = seats.fuuid
+	</select>
+	
+	<select id="arrlist" parameterType="Map" resultType="Map">
+		SELECT flights.*, seats.minSprice
+		FROM flights
+		INNER JOIN(
+			SELECT fuuid, MIN(sprice) as minSprice
+			FROM seats
+			WHERE fuuid IN(
+				SELECT fuuid
+				FROM flights
+				WHERE fdeparture=#{arrival} AND farrival=#{departure} AND DATE(ftod)=#{toa}
+			)
+			GROUP BY fuuid
+		) seats ON flights.fuuid = seats.fuuid
+	</select>
+	
+	<select id="sortDepListCostDesc" parameterType="Map" resultType="Map">
+		SELECT flights.*, seats.minSprice
+		FROM flights
+		INNER JOIN(
+			SELECT fuuid, MIN(sprice) as minSprice
+			FROM seats
+			WHERE fuuid IN(
+				SELECT fuuid
+				FROM flights
+				WHERE fdeparture=#{departure} AND farrival=#{arrival} AND DATE(ftod)=#{tod}
+			)
+			GROUP BY fuuid
+		) seats ON flights.fuuid = seats.fuuid
+		ORDER BY seats.minSprice DESC;
+	</select>
+	
+	<select id="sortDepListCostAsc" parameterType="Map" resultType="Map">
+		SELECT flights.*, seats.minSprice
+		FROM flights
+		INNER JOIN(
+			SELECT fuuid, MIN(sprice) as minSprice
+			FROM seats
+			WHERE fuuid IN(
+				SELECT fuuid
+				FROM flights
+				WHERE fdeparture=#{departure} AND farrival=#{arrival} AND DATE(ftod)=#{tod}
+			)
+			GROUP BY fuuid
+		) seats ON flights.fuuid = seats.fuuid
+		ORDER BY seats.minSprice;
+	</select>
+	
+	<select id="sortArrListCostDesc" parameterType="Map" resultType="Map">
+		SELECT flights.*, seats.minSprice
+		FROM flights
+		INNER JOIN(
+			SELECT fuuid, MIN(sprice) as minSprice
+			FROM seats
+			WHERE fuuid IN(
+				SELECT fuuid
+				FROM flights
+				WHERE fdeparture=#{arrival} AND farrival=#{departure} AND DATE(ftod)=#{toa}
+			)
+			GROUP BY fuuid
+		) seats ON flights.fuuid = seats.fuuid
+		ORDER BY seats.minSprice DESC;
+	</select>
+	
+	<select id="sortArrListCostAsc" parameterType="Map" resultType="Map">
+		SELECT flights.*, seats.minSprice
+		FROM flights
+		INNER JOIN(
+			SELECT fuuid, MIN(sprice) as minSprice
+			FROM seats
+			WHERE fuuid IN(
+				SELECT fuuid
+				FROM flights
+				WHERE fdeparture=#{arrival} AND farrival=#{departure} AND DATE(ftod)=#{toa}
+			)
+			GROUP BY fuuid
+		) seats ON flights.fuuid = seats.fuuid
+		ORDER BY seats.minSprice;
+	</select>
+	
+	<select id="sortDepListTimeDesc" parameterType="Map" resultType="Map">
+		SELECT flights.*, seats.minSprice
+		FROM flights
+		INNER JOIN(
+			SELECT fuuid, MIN(sprice) as minSprice
+			FROM seats
+			WHERE fuuid IN(
+				SELECT fuuid
+				FROM flights
+				WHERE fdeparture=#{departure} AND farrival=#{arrival} AND DATE(ftod)=#{tod}
+			)
+			GROUP BY fuuid
+		) seats ON flights.fuuid = seats.fuuid
+		ORDER BY flights.ftod DESC;
+	</select>
+	
+	<select id="sortDepListTimeAsc" parameterType="Map" resultType="Map">
+		SELECT flights.*, seats.minSprice
+		FROM flights
+		INNER JOIN(
+			SELECT fuuid, MIN(sprice) as minSprice
+			FROM seats
+			WHERE fuuid IN(
+				SELECT fuuid
+				FROM flights
+				WHERE fdeparture=#{departure} AND farrival=#{arrival} AND DATE(ftod)=#{tod}
+			)
+			GROUP BY fuuid
+		) seats ON flights.fuuid = seats.fuuid
+		ORDER BY flights.ftod;
+	</select>
+	
+	<select id="sortArrListTimeDesc" parameterType="Map" resultType="Map">
+		SELECT flights.*, seats.minSprice
+		FROM flights
+		INNER JOIN(
+			SELECT fuuid, MIN(sprice) as minSprice
+			FROM seats
+			WHERE fuuid IN(
+				SELECT fuuid
+				FROM flights
+				WHERE fdeparture=#{arrival} AND farrival=#{departure} AND DATE(ftod)=#{toa}
+			)
+			GROUP BY fuuid
+		) seats ON flights.fuuid = seats.fuuid
+		ORDER BY flights.ftod DESC;
+	</select>
+	
+	<select id="sortArrListTimeAsc" parameterType="Map" resultType="Map">
+		SELECT flights.*, seats.minSprice
+		FROM flights
+		INNER JOIN(
+			SELECT fuuid, MIN(sprice) as minSprice
+			FROM seats
+			WHERE fuuid IN(
+				SELECT fuuid
+				FROM flights
+				WHERE fdeparture=#{arrival} AND farrival=#{departure} AND DATE(ftod)=#{toa}
+			)
+			GROUP BY fuuid
+		) seats ON flights.fuuid = seats.fuuid
+		ORDER BY flights.ftod;
+	</select>
+	
+	<select id="seatList" parameterType="String" resultType="Map">
+		SELECT *
+		FROM seats
+		WHERE fuuid=#{fuuid}
+	</select>
+	
+	<select id="getFInfo" parameterType="Object" resultType="Map">
+		SELECT *
+		FROM flights
+		WHERE fuuid=#{fuuid}
+	</select>
+
+	<select id="getSInfo" parameterType="Object" resultType="Map">
+		SELECT *
+		FROM seats
+		WHERE sno=#{sno}
+	</select>
+	
+	<select id="getAInfo" resultType="Map">
+		SELECT *
+		FROM accessorialcharges
+	</select>
+
+</mapper>

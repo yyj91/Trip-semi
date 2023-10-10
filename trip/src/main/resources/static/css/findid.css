@@ -1,0 +1,7 @@
+@charset "UTF-8"; 
+
+.divider {
+	border-left: 1px solid #ccc;
+	height: 12px;
+	margin: 0 10px;
+}

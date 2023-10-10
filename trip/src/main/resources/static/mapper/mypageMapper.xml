@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trip.web.dao.MypageDAO">
+
+
+	<!-- 회원정보 불러오기 -->
+	<select id="list" parameterType="String" resultType="MypageDTO">
+		SELECT
+		mlastname, mfirstname, mid, mpw, mphone, memail
+		FROM members
+		WHERE muuid =#{uuid}
+	</select>
+
+	<!-- 회원정보 수정하기 -->
+	<update id="mpupdate" parameterType="Map">
+		UPDATE members SET
+		mlastname
+		= #{mlastname}, mfirstname = #{mfirstname},
+		mpw = #{mpw}, mphone =
+		#{mphone}, memail = #{memail}
+		WHERE mid = #{mid}
+	</update>
+
+	<!-- 회원 탈퇴하기 -->
+	<delete id="remove">
+		DELETE FROM members
+		WHERE mid = #{mid}
+	</delete>
+
+
+	<!-- 예약내역 가져오기 -->
+	<select id="rvlist" parameterType="String" resultType="MypageDTO">
+	SELECT f.*, s.sgrade
+    FROM flights f
+    LEFT JOIN seats s ON f.fuuid = s.fuuid
+    WHERE f.fuuid = '73d90827-5a98-11ee-950e-e96f6edb0171'
+	</select>
+
+	<!-- 예약내역 취소하기  --> 
+	<update id="cancelReservation" parameterType="Map"> 
+	</update>
+
+
+</mapper>
+	
+	

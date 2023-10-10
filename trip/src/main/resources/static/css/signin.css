@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+#signinBox {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px;
+}
+
+#signinBox h1 {
+	text-align: center;
+	margin: 0;
+}
+
+#signinBox input[type="text"], #signinBox input[type="password"],
+	#signinBox button, .signinBtn {
+	display: block;
+	border: none;
+	width: 420px;
+	height: 50px;
+}
+
+#signinName {
+	display: flex;
+	justify-content: space-between;
+	width: 420px;
+}
+
+#signinName input[type="text"], #signinName input[type="password"] {
+	width: 205px;
+}
+
+.signinBtn:hover, .sEmailBtn, .vEmailBtn {
+	cursor: pointer;
+}
+
+.valDiv {
+	color: red;
+	font-size: 14px;
+	margin: 5px 5 px;
+}

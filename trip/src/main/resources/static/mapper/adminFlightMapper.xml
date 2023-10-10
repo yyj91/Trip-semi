@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trip.web.dao.FlightScheduleDAO">
+
+	<insert id="saveFlightData0" parameterType="Map">
+    	INSERT INTO flights (fname, fairline, fdeparture, farrival, ftod, ftoa)
+   		values(#{vihicleId}, #{airlineNm}, #{depAirportNm}, #{arrAirportNm}, #{depPlandTime}, #{arrPlandTime})
+	</insert>
+	
+	<insert id="saveFlightData1" parameterType="Map">
+		insert into seats (sgrade, sprice, sseat, sremainder, fuuid)
+		values(#{seatClass}, #{seatPrice}, #{numberOfSeats}, #{numberOfSeats}, 
+		(select fuuid from flights where fname=#{vihicleId} and fairline=#{airlineNm} and fdeparture = #{depAirportNm} 
+		and farrival = #{arrAirportNm} and ftod = #{depPlandTime} and ftoa = #{arrPlandTime}))
+	</insert>
+	
+	<select id="saveFlightData2" parameterType="Map" resultType="Integer">
+		select count(*) from seats s
+		where s.sgrade = #{seatClass} and s.fuuid = (select f.fuuid from flights f where f.fname=#{vihicleId} and f.fairline=#{airlineNm} 
+		and f.fdeparture = #{depAirportNm} and f.farrival = #{arrAirportNm} and f.ftod = #{depPlandTime} and f.ftoa = #{arrPlandTime})
+	</select>
+	
+	<select id="saveFlightData3" parameterType="Map" resultType="Integer">
+		select count(*) from flights
+		where fname=#{vihicleId} and fairline=#{airlineNm} and fdeparture = #{depAirportNm} and farrival = #{arrAirportNm} and ftod = #{depPlandTime} and ftoa = #{arrPlandTime}
+	</select>
+	
+</mapper>
